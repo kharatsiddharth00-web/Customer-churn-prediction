@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Customer Churn Predictor</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 15px;
+        padding: 30px;
+        width: 380px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        color: white;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    label {
+        font-size: 14px;
+        margin-top: 10px;
+        display: block;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        background: rgba(255,255,255,0.2);
+        color: white;
+    }
+
+    input::placeholder {
+        color: #ddd;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(90deg, #00c6ff, #0072ff);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+        background: linear-gradient(90deg, #0072ff, #00c6ff);
+    }
+
+    .result-box {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .churn {
+        background: rgba(255, 0, 0, 0.2);
+        color: #ff4d4d;
+    }
+
+    .stay {
+        background: rgba(0, 255, 150, 0.2);
+        color: #00ffcc;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="glass-card">
+
+    <h2>🔮 AI Churn Predictor</h2>
+
+    <form action="/predict" method="post">
+
+        <label>Gender</label>
+        <select name="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <label>Senior Citizen</label>
+        <select name="SeniorCitizen">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+
+        <label>Tenure (months)</label>
+        <input type="number" name="tenure" placeholder="Enter tenure" required>
+
+        <label>Monthly Charges</label>
+        <input type="number" step="0.01" name="MonthlyCharges" placeholder="Enter amount" required>
+
+        <label>Total Charges</label>
+        <input type="number" step="0.01" name="TotalCharges" placeholder="Enter total" required>
+
+        <button type="submit">Predict Now 🚀</button>
+
+    </form>
+
+    {% if prediction_text %}
+        <div class="result-box 
+            {% if 'Churn' in prediction_text %}churn{% else %}stay{% endif %}">
+            {{ prediction_text }}
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
